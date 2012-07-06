@@ -19,7 +19,7 @@ INSTALL(
 
 INSTALL(
   FILES
-  ${CMAKE_BINARY_DIR}/json_spirit/libjson_spirit.a
+  ${CMAKE_BINARY_DIR}/json_spirit/libjson_spirit.so
   DESTINATION lib)
 
 INCLUDE(CPack)
