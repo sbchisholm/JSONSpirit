@@ -9,6 +9,8 @@
 #include "json_spirit.h"
 #include <cassert>
 #include <fstream>
+#include <cmath>
+#include <boost/math/special_functions/fpclassify.hpp>
 
 #ifndef JSON_SPIRIT_VALUE_ENABLED
 #error Please define JSON_SPIRIT_VALUE_ENABLED for the Value type to be enabled 
@@ -19,7 +21,7 @@ using namespace json_spirit;
 
 struct Address
 {
-    int house_number_;
+    double house_number_;
     string road_;
     string town_;
     string county_;
@@ -28,7 +30,8 @@ struct Address
 
 bool operator==( const Address& a1, const Address& a2 )
 {
-    return ( a1.house_number_ == a2.house_number_ ) &&
+    using namespace boost::math;
+    return (( a1.house_number_ == a2.house_number_ ) || ( isnan(a1.house_number_) && isnan(a2.house_number_) ) || ( isinf(a1.house_number_) && isinf(a2.house_number_) )) &&
            ( a1.road_         == a2.road_ ) &&
            ( a1.town_         == a2.town_ ) &&
            ( a1.county_       == a2.county_ ) &&
@@ -61,7 +64,7 @@ Address read_address( const Object& obj )
 
         if( name == "house_number" )
         {
-            addr.house_number_ = value.get_int();
+            addr.house_number_ = value.get_real();
         }
         else if( name == "road" )
         {
@@ -126,11 +129,11 @@ vector< Address > read_addrs( const char* file_name )
 
 int main()
 {
-    const Address addrs[5] = { { 42, "East Street",  "Newtown",     "Essex",         "England" },
-                               { 1,  "West Street",  "Hull",        "Yorkshire",     "England" },
-                               { 12, "South Road",   "Aberystwyth", "Dyfed",         "Wales"   },
-                               { 45, "North Road",   "Paignton",    "Devon",         "England" },
-                               { 78, "Upper Street", "Ware",        "Hertfordshire", "England" } };
+    const Address addrs[5] = { { NAN,       "East Street",  "Newtown",     "Essex",         "England" },
+                               { INFINITY,  "West Street",  "Hull",        "Yorkshire",     "England" },
+                               { -INFINITY, "South Road",   "Aberystwyth", "Dyfed",         "Wales"   },
+                               { 45.,       "North Road",   "Paignton",    "Devon",         "England" },
+                               { 78.,       "Upper Street", "Ware",        "Hertfordshire", "England" } };
 
     const char* file_name( "demo.txt" );
 

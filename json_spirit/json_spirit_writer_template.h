@@ -17,6 +17,8 @@
 #include <sstream>
 #include <iomanip>
 #include <boost/io/ios_state.hpp>
+#include <boost/math/special_functions/fpclassify.hpp>
+#include <cmath>
 
 namespace json_spirit
 {
@@ -106,7 +108,20 @@ namespace json_spirit
     template< class Ostream >
     void append_double( Ostream& os, const double d, const int precision )
     {
-        os << std::showpoint << std::setprecision( precision ) << d;
+        if( boost::math::isnan(d) ) {
+            os << "NaN";
+        } 
+        else if( boost::math::isinf(d) ) {
+            if( 0 < d ) {
+                os << "Infinity";
+            }
+            else {
+                os << "-Infinity";
+            }
+        }
+        else {
+            os << std::showpoint << std::setprecision( precision ) << d;
+        }
     }
 
     template< class String_type >
@@ -192,7 +207,7 @@ namespace json_spirit
                 case array_type: output( value.get_array() ); break;
                 case str_type:   output( value.get_str() );   break;
                 case bool_type:  output( value.get_bool() );  break;
-                case real_type:  output( value.get_real() );  break;
+                case real_type:  output( value.get_real() );   break;
                 case int_type:   output_int( value );         break;
                 case null_type:  os_ << "null";               break;
                 default: assert( false );
