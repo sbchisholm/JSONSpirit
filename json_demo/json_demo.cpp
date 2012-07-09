@@ -30,12 +30,13 @@ struct Address
 
 bool operator==( const Address& a1, const Address& a2 )
 {
-    using namespace boost::math;
-    return (( a1.house_number_ == a2.house_number_ ) || ( isnan(a1.house_number_) && isnan(a2.house_number_) ) || ( isinf(a1.house_number_) && isinf(a2.house_number_) )) &&
-           ( a1.road_         == a2.road_ ) &&
-           ( a1.town_         == a2.town_ ) &&
-           ( a1.county_       == a2.county_ ) &&
-           ( a1.country_      == a2.country_ );
+    return (( a1.house_number_ == a2.house_number_ ) || 
+            ( 0.0 == a1.house_number_ && isnan(a2.house_number_) ) || 
+            ( 0.0 == a1.house_number_ && isinf(a2.house_number_) )) &&
+           ( a1.road_    == a2.road_ ) &&
+           ( a1.town_    == a2.town_ ) &&
+           ( a1.county_  == a2.county_ ) &&
+           ( a1.country_ == a2.country_ );
 }
 
 void write_address( Array& a, const Address& addr )
@@ -64,7 +65,7 @@ Address read_address( const Object& obj )
 
         if( name == "house_number" )
         {
-            addr.house_number_ = value.get_real();
+            addr.house_number_ = value.is_null() ? 0.0 : value.get_real();
         }
         else if( name == "road" )
         {

@@ -274,27 +274,6 @@ namespace json_spirit
             add_to_current( Value_type() );
         }
 
-        void new_Infinity( Iter_type begin, Iter_type end )
-        {
-            assert( is_eq( begin, end, "Infinity" ) );
-
-            add_to_current( INFINITY );
-        }
-
-        void new_NegInfinity( Iter_type begin, Iter_type end )
-        {
-            assert( is_eq( begin, end, "-Infinity" ) );
-
-            add_to_current( -INFINITY );
-        }
-
-        void new_NaN( Iter_type begin, Iter_type end )
-        {
-            assert( is_eq( begin, end, "NaN" ) );
-
-            add_to_current( NAN );
-        }
-
         void new_int( boost::int64_t i )
         {
             add_to_current( i );
@@ -462,9 +441,6 @@ namespace json_spirit
                 Str_action    new_true        ( boost::bind( &Semantic_actions_t::new_true,        &self.actions_, _1, _2 ) );
                 Str_action    new_false       ( boost::bind( &Semantic_actions_t::new_false,       &self.actions_, _1, _2 ) );
                 Str_action    new_null        ( boost::bind( &Semantic_actions_t::new_null,        &self.actions_, _1, _2 ) );
-                Str_action    new_Infinity    ( boost::bind( &Semantic_actions_t::new_Infinity,    &self.actions_, _1, _2 ) );
-                Str_action    new_NegInfinity ( boost::bind( &Semantic_actions_t::new_NegInfinity, &self.actions_, _1, _2 ) );
-                Str_action    new_NaN         ( boost::bind( &Semantic_actions_t::new_NaN,         &self.actions_, _1, _2 ) );
                 Real_action   new_real        ( boost::bind( &Semantic_actions_t::new_real,        &self.actions_, _1 ) );
                 Int_action    new_int         ( boost::bind( &Semantic_actions_t::new_int,         &self.actions_, _1 ) );
                 Uint64_action new_uint64      ( boost::bind( &Semantic_actions_t::new_uint64,      &self.actions_, _1 ) );
@@ -483,9 +459,6 @@ namespace json_spirit
                     | str_p( "true"      ) [ new_true        ] 
                     | str_p( "false"     ) [ new_false       ] 
                     | str_p( "null"      ) [ new_null        ]
-                    | str_p( "Infinity"  ) [ new_Infinity    ]
-                    | str_p( "-Infinity" ) [ new_NegInfinity ]
-                    | str_p( "NaN"       ) [ new_NaN         ]
                     ;
 
                 object_ 
