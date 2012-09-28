@@ -1,0 +1,21 @@
+json-spirit (26b0ef4.1-1ubuntu1) precise; urgency=low
+
+  * Fixed dependency for boost 1.48
+
+ -- Stephen B Chisholm <sbchisholm@gmail.com>  Fri, 21 Sep 2012 08:57:24 -0300
+
+json-spirit (26b0ef4.1-0ubuntu1) precise; urgency=low
+
+  * /usr/include/json_spirit_writer_options.h was missing
+
+ -- Stephen B Chisholm <sbchisholm@gmail.com>  Mon, 17 Sep 2012 13:45:24 -0300
+
+json-spirit (26b0ef4-3ubuntu1) precise; urgency=low
+
+  * Initial release 
+  * Added support for nan -inf and inf
+  * Building as a library
+  * Fixed broken dependancy issue
+  * Fixed file the was in both the dev and non-dev version
+
+ -- Stephen B Chisholm <sbchisholm@gmail.com>  Mon, 17 Sep 2012 09:33:24 -0300
