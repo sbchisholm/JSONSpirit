@@ -16,6 +16,7 @@
 #include <cassert>
 #include <sstream>
 #include <iomanip>
+#include <boost/lexical_cast.hpp>
 #include <boost/io/ios_state.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
 #include <cmath>
@@ -109,7 +110,7 @@ namespace json_spirit
     void append_double( Ostream& os, const double d, const int precision )
     {
         if( boost::math::isfinite(d) ) {
-            os << std::showpoint << std::setprecision( precision ) << d;
+            os << boost::lexical_cast<std::string>(d);
         } 
         else {
             os << "null";
