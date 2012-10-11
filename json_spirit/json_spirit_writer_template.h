@@ -110,7 +110,7 @@ namespace json_spirit
     void append_double( Ostream& os, const double d, const int precision )
     {
         if( boost::math::isfinite(d) ) {
-            os << boost::lexical_cast<std::string>(d);
+            os << std::showpoint << std::setprecision( precision ) << d;
         } 
         else {
             os << "null";
@@ -247,7 +247,7 @@ namespace json_spirit
             {
                 std::basic_ostringstream< Char_type > os;
 
-                append_double( os, d, 16 );  // note precision is 16 so that we get some trailing space that we can remove,
+                append_double( os, d, 17 );  // note precision is 17 so that we get some trailing space that we can remove,
                                              // otherwise, 0.1234 gets converted to "0.12399999..."
 
                 String_type str = os.str();
