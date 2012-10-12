@@ -10,3 +10,8 @@ For using the cmake build system do the following steps:
 BOOST_ROOT Please set BOOST_ROOT to the root
   directory containing Boost or BOOST_INCLUDEDIR to the directory containing
   Boost's headers.
+
+Example:
+  BOOST_ROOT=/opt/boost-1.42.0-openmpi CXXFLAGS=-O3 \
+  LDFLAGS="-L/opt/boost-1.42.0-openmpi/lib64 -lboost_thread"\
+  cmake -DCMAKE_INSTALL_PREFIX:PATH=/$HOME/local ..

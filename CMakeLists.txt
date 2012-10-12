@@ -4,6 +4,12 @@ PROJECT(json_spirit)
 SUBDIRS(json_spirit json_demo json_headers_only_demo json_map_demo json_test)
 INCLUDE_DIRECTORIES(json_spirit)
 
+SET(
+  CPACK_SOURCE_IGNORE_FILES 
+  ${CMAKE_SOURCE_DIR}/build
+  ${CMAKE_SOURCE_DIR}/debian
+  ${CMAKE_SOURCE_DIR}/.git)
+
 INSTALL(
   FILES
   ${CMAKE_SOURCE_DIR}/json_spirit/json_spirit.h
